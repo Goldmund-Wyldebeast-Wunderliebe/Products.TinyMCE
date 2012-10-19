@@ -202,7 +202,7 @@ BrowserDialog.prototype.init = function () {
             // determine link type
             if (href.indexOf('#') === 0) {
                 // anchor
-                jq('input:radio[value=' + href + ']', document).click();
+                jq('input:radio[value="' + href + '"]', document).click();
                 jq('#linktype a[href=#anchor]', document).click();
                 jq('#cssstyle', document).val(selected_node.attr('style'));
             } else if (href.indexOf('mailto:') > -1) {
@@ -707,10 +707,10 @@ BrowserDialog.prototype.setDetails = function (url) {
             self.displayPanel('details');
 
             // select radio button in folder listing and mark selected image
-            jq('input:radio[name=internallink][value!=' + data.uid_relative_url + ']', document)
+            jq('input:radio[name=internallink][value!="' + data.uid_relative_url + '"]', document)
                 .parent('.item')
                 .removeClass('current');
-            jq('input:radio[name=internallink][value=' + data.uid_relative_url + ']', document)
+            jq('input:radio[name=internallink][value="' + data.uid_relative_url + '"]', document)
                 .attr('checked', 'checked')
                 .parent('.item')
                 .addClass('current');

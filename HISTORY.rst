@@ -5,7 +5,11 @@ HISTORY
 1.3b7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Include latest jquery.tinymce.js (but minified) from the tinymce github
+  which fixes attr() returning an object [huubbouma]
+
+- quote the value selector so the plonebrowser plugin works in recent jquery
+  (1.7.1) [huubbouma]
 
 
 1.3b6 (2012-10-16)
