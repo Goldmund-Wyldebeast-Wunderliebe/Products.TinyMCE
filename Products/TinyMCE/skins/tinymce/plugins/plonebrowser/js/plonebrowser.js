@@ -16,6 +16,8 @@ var BrowserDialog = function (mcePopup) {
 
     this.tinyMCEPopup = mcePopup;
     this.editor = mcePopup.editor;
+    // Save the cloned range!
+    this.cloned_range = mcePopup.editor.cloned_range;
 
     /* In case of UID linked images maintains a relative "resolveuid/<UUID>"
        fragment otherwise contains a full URL to the image. */
@@ -438,6 +440,7 @@ BrowserDialog.prototype.insertLink = function () {
         link,
         name;
 
+    console.log("plonebrowser: " + this.cloned_range.toString());
     if (selected_node.get(0).tagName !== "A") {
         selected_node = selected_node.parent('a');
         if (selected_node.length === 0) {
@@ -490,7 +493,8 @@ BrowserDialog.prototype.insertLink = function () {
 
     // Remove element if there is no link
     if (!link) {
-        this.tinyMCEPopup.execCommand("mceBeginUndoLevel");
+        console("Yello");
+        this.tinyMCEPopup.execCommand("mceAddUndoLevel");
         i = this.editor.selection.getBookmark();
         this.editor.dom.remove(selected_node, 1);
         this.editor.selection.moveToBookmark(i);
@@ -499,12 +503,15 @@ BrowserDialog.prototype.insertLink = function () {
         return;
     }
 
-    this.tinyMCEPopup.execCommand("mceBeginUndoLevel");
+    if (!tinymce.isIE11){
+        //Somehow breaks range stuff in IE11 furt along
+        this.tinyMCEPopup.execCommand("mceAddUndoLevel");
+    }
 
     if (selected_node === null) {
         // Create new anchor elements
         // no idea what this does, yet.
-        this.editor.getDoc().execCommand("unlink", false, null);
+        // this.editor.getDoc().execCommand("unlink", false, null);
 
         if (tinymce.isWebKit) {
             // https://github.com/tinymce/tinymce/pull/57#issuecomment-1771936
@@ -514,6 +521,10 @@ BrowserDialog.prototype.insertLink = function () {
             } else {
                 this.tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
             }
+        } else if (tinymce.isIE11){
+            //Explicitly restore the range we saved.
+            this.editor.selection.setRng(this.cloned_range);
+            this.tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
         } else {
             this.tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
         }
