@@ -20,7 +20,7 @@
                 ed.windowManager.open({
                     file : url + '/plonebrowser.htm?ploneimage=1',
                     width : 820 + parseInt(ed.getLang('plonebrowser.delta_width', 0), 10),
-                    height : 500 + parseInt(ed.getLang('plonebrowser.delta_height', 0), 10),
+                    height : 610 + parseInt(ed.getLang('plonebrowser.delta_height', 0), 10),
                     inline : 1
                 }, {
                     plugin_url : url
@@ -38,7 +38,7 @@
                 ed.windowManager.open({
                     file : url + '/plonebrowser.htm?plonelink=1',
                     width : 820 + parseInt(ed.getLang('plonebrowser.delta_width', 0)),
-                    height : 540 + parseInt(ed.getLang('plonebrowser.delta_height', 0)),
+                    height : 610 + parseInt(ed.getLang('plonebrowser.delta_height', 0)),
                     inline : 1
                 }, {
                     plugin_url : url
