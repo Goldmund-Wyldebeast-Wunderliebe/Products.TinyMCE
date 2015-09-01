@@ -440,7 +440,6 @@ BrowserDialog.prototype.insertLink = function () {
         link,
         name;
 
-    console.log("plonebrowser: " + this.cloned_range.toString());
     if (selected_node.get(0).tagName !== "A") {
         selected_node = selected_node.parent('a');
         if (selected_node.length === 0) {
@@ -493,7 +492,6 @@ BrowserDialog.prototype.insertLink = function () {
 
     // Remove element if there is no link
     if (!link) {
-        console("Yello");
         this.tinyMCEPopup.execCommand("mceAddUndoLevel");
         i = this.editor.selection.getBookmark();
         this.editor.dom.remove(selected_node, 1);
